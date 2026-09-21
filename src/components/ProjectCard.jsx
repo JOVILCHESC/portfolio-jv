@@ -8,7 +8,7 @@ export default function ProjectCard({ project, content }) {
     project.outcome ||
     project.technologies.length > 0
   return (
-    <article className="project-card">
+    <article className="project-card" data-reveal="group">
       <div className={`project-image ${project.visual}`}>
         <span className="project-number">{project.number} /</span>
         {project.image ? (

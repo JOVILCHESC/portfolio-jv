@@ -3,6 +3,7 @@ export default function About({ content }) {
     <section
       className="section container about-section"
       id="about"
+      data-reveal="group"
       aria-labelledby="about-title"
     >
       <div>

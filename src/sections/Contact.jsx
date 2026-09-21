@@ -7,7 +7,7 @@ export default function Contact({ content, profile, cvLabel }) {
       id="contact"
       aria-labelledby="contact-title"
     >
-      <div className="container contact-layout">
+      <div className="container contact-layout" data-reveal="group">
         <div>
           <p className="eyebrow">{content.eyebrow}</p>
           <h2 id="contact-title">{content.title}</h2>

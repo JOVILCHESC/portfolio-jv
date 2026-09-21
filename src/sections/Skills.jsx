@@ -5,14 +5,14 @@ export default function Skills({ content }) {
       id="skills"
       aria-labelledby="skills-title"
     >
-      <div className="section-heading">
+      <div className="section-heading" data-reveal="group">
         <div>
           <p className="eyebrow">{content.eyebrow}</p>
           <h2 id="skills-title">{content.title}</h2>
         </div>
         <p className="section-description">{content.description}</p>
       </div>
-      <div className="skills-grid">
+      <div className="skills-grid" data-reveal="group">
         {content.groups.map((group) => (
           <article className="skill-group" key={group.number}>
             <span className="skill-number">{group.number}</span>

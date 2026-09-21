@@ -8,7 +8,7 @@ export default function Projects({ content, projects }) {
       aria-labelledby="projects-title"
     >
       <div className="container">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal="group">
           <div>
             <p className="eyebrow">{content.eyebrow}</p>
             <h2 id="projects-title">{content.title}</h2>

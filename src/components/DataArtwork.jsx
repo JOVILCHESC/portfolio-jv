@@ -1,6 +1,16 @@
+import { useRef } from 'react'
+import useArtworkTilt from '../hooks/useArtworkTilt.js'
+
 export default function DataArtwork({ content }) {
+  const artworkRef = useRef(null)
+  useArtworkTilt(artworkRef)
   return (
-    <div className="data-artwork" aria-hidden="true">
+    <div
+      ref={artworkRef}
+      className="data-artwork"
+      data-reveal="artwork"
+      aria-hidden="true"
+    >
       <div className="artwork-top">
         <span className="tiny-cross">+</span>
         <span>{content.graphicEyebrow}</span>
@@ -24,7 +34,7 @@ export default function DataArtwork({ content }) {
           <circle cx="234" cy="175" r="116" strokeDasharray="3 7" />
           <path d="M234 32v286M85 175h298" strokeDasharray="3 7" />
         </g>
-        <g fill="#f7f4fc" stroke="#b8aacd">
+        <g className="artwork-nodes" fill="#f7f4fc" stroke="#b8aacd">
           <circle cx="68" cy="78" r="8" />
           <circle cx="231" cy="55" r="6" />
           <circle cx="387" cy="106" r="10" />
@@ -33,6 +43,7 @@ export default function DataArtwork({ content }) {
           <circle cx="76" cy="262" r="7" />
         </g>
         <path
+          className="artwork-connections"
           d="m68 78 165 97 154-69M233 175l12 131M233 175 76 262"
           stroke="#7861ce"
           strokeWidth="2"
@@ -45,21 +56,23 @@ export default function DataArtwork({ content }) {
           fillOpacity=".7"
           stroke="#b1a0d8"
         />
-        <rect
-          x="195"
-          y="136"
-          width="78"
-          height="78"
-          rx="22"
-          fill="#6950bd"
-          transform="rotate(-12 234 175)"
-        />
-        <path
-          d="M214 185v-14m20 14v-30m20 30v-21"
-          stroke="#fff"
-          strokeWidth="7"
-          strokeLinecap="round"
-        />
+        <g className="artwork-icon">
+          <rect
+            x="195"
+            y="136"
+            width="78"
+            height="78"
+            rx="22"
+            fill="#6950bd"
+            transform="rotate(-12 234 175)"
+          />
+          <path
+            d="M214 185v-14m20 14v-30m20 30v-21"
+            stroke="#fff"
+            strokeWidth="7"
+            strokeLinecap="round"
+          />
+        </g>
         <circle cx="68" cy="78" r="3" fill="#7861ce" />
         <circle cx="387" cy="106" r="4" fill="#7861ce" />
         <circle cx="245" cy="306" r="3" fill="#7861ce" />

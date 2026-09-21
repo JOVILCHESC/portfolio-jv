@@ -8,16 +8,20 @@ import Experience from './sections/Experience.jsx'
 import Contact from './sections/Contact.jsx'
 import { portfolio } from './data/portfolio.js'
 import { copy } from './data/copy.js'
+import { useRef } from 'react'
+import useReveal from './hooks/useReveal.js'
 
 export default function App() {
   const content = copy.es
+  const mainRef = useRef(null)
+  useReveal(mainRef)
   return (
     <div id="home">
       <a className="skip-link" href="#main-content">
         {content.skip}
       </a>
       <Navbar content={content} profile={portfolio} />
-      <main id="main-content" tabIndex={-1}>
+      <main ref={mainRef} id="main-content" tabIndex={-1}>
         <Hero content={content.hero} profile={portfolio} />
         <About content={content.about} />
         <Projects content={content.projects} projects={portfolio.projects} />

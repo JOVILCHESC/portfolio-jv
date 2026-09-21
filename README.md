@@ -21,6 +21,8 @@ npm run preview
 
 `npm run build` creates the production site in `dist/`. Deploy that directory to a static host. For deployment under a subdirectory, configure Vite's `base` option and adjust public asset references. A custom domain, canonical URL, and absolute Open Graph image URL should be added once the hosting address is known.
 
+The build also prerenders the existing React components into HTML with `scripts/prerender.js`. Production content and anchor navigation remain available if JavaScript is disabled or fails to download. React hydrates this markup to enable interactions; the development server still renders on the client.
+
 ## Architecture
 
 - `src/data/portfolio.js`: profile, projects, education, professional experience, contact channels, and CV.
@@ -28,10 +30,21 @@ npm run preview
 - `src/components/`: navigation, project cards, conceptual SVG graphics, and footer.
 - `src/sections/`: the page's main content sections.
 - `src/styles/index.css`: design tokens, layouts, responsive rules, focus states, and reduced motion.
+- `src/styles/motion.css`: finite reveal animations, SVG motion, project interactions, and progressive-enhancement fallbacks.
+- `src/hooks/`: shared reveal observer, fine-pointer artwork tilt, and scroll position tracking.
 - `public/`: static assets, including the favicon and a future CV PDF.
 - `tests/portfolio.spec.js`: browser checks for navigation, responsive overflow, runtime errors, reduced motion, and WCAG A/AA automated accessibility checks.
+- `tests/motion.spec.js`: active navigation, scroll progress, reveal lifecycle, pointer capabilities, reduced motion changes, and HTML without JavaScript.
 
 The interface uses locally bundled Manrope fonts. It does not request remote fonts, use analytics, or submit personal data. Project graphics are labeled conceptual illustrations; they do not represent measured outcomes or actual project screenshots.
+
+## Interaction system
+
+Reveal groups are marked with `data-reveal="group"` and observed once by a shared `IntersectionObserver`. Content is visible by default; entering the viewport triggers a short opacity/translate animation and releases the observer target. Keyboard focus cancels a group's reveal. The SVG artwork uses the same observer with finite, restrained node and icon animations.
+
+Artwork tilt is limited to 1.5 degrees per axis on hovering fine-pointer devices and mouse events. Pointer movement and scrolling schedule at most one pending animation frame, with no idle render loop. Scroll progress updates a transform directly; React state changes only when the active section changes. Section offsets and document height are cached and remeasured after resize or content-size changes. Effects remove their listeners, observers, and pending frames on cleanup.
+
+Reduced motion disables reveals, SVG animation, tilt, hover translation, and the decorative scroll progress line, including when the preference changes while the page is open. Active navigation and keyboard focus remain functional. Cards do not gain artificial tab stops; focus styles apply to their optional links and detail controls. Touch devices retain static card interactions.
 
 ## Content handoff
 

@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import Arrow from './Arrow.jsx'
+import useScrollStatus from '../hooks/useScrollStatus.js'
 
 export default function Navbar({ content, profile }) {
   const [isOpen, setIsOpen] = useState(false)
   const toggleRef = useRef(null)
+  const headerRef = useRef(null)
+  const progressRef = useRef(null)
+  const activeSection = useScrollStatus(headerRef, progressRef)
 
   useEffect(() => {
+    const header = headerRef.current
+    header.dataset.enhanced = 'true'
     const handleEscape = (event) => {
       if (event.key === 'Escape' && isOpen) {
         setIsOpen(false)
@@ -19,13 +25,15 @@ export default function Navbar({ content, profile }) {
     window.addEventListener('keydown', handleEscape)
     media.addEventListener('change', handleResize)
     return () => {
+      delete header.dataset.enhanced
       window.removeEventListener('keydown', handleEscape)
       media.removeEventListener('change', handleResize)
     }
   }, [isOpen])
 
   return (
-    <header className="site-header">
+    <header ref={headerRef} className="site-header">
+      <div ref={progressRef} className="scroll-progress" aria-hidden="true" />
       <div className="container navbar">
         <a
           className="brand"
@@ -69,6 +77,9 @@ export default function Navbar({ content, profile }) {
             <a
               key={link.href}
               href={link.href}
+              aria-current={
+                link.href === `#${activeSection}` ? 'location' : undefined
+              }
               onClick={() => setIsOpen(false)}
             >
               {link.label}
@@ -77,6 +88,7 @@ export default function Navbar({ content, profile }) {
           <a
             className="nav-contact"
             href="#contact"
+            aria-current={activeSection === 'contact' ? 'location' : undefined}
             onClick={() => setIsOpen(false)}
           >
             {content.contactAction}

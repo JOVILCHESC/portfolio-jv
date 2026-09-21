@@ -302,7 +302,8 @@ h1 > span {
   border-radius: 8px;
   padding: 22px 27px 0;
   position: relative;
-  transform: rotate(-2deg);
+  transform: perspective(1000px) rotate(var(--artwork-angle, -2deg))
+    rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   margin-top: 23px;
 }
 .artwork-top {
@@ -457,9 +458,6 @@ h2 {
   width: 100%;
   height: auto;
   transition: transform 250ms ease;
-}
-.project-card:hover .project-visual {
-  transform: translateY(-3px);
 }
 .visual-caption {
   position: absolute;
@@ -907,9 +905,6 @@ h2 {
     top: 50%;
     transform: translateY(-50%);
   }
-  .project-card:hover .project-visual {
-    transform: translateY(calc(-50% - 3px));
-  }
   .project-description,
   .project-body h3 {
     min-height: 0;
@@ -969,7 +964,7 @@ h2 {
     width: min(100%, 370px);
     margin: 8px auto 0;
     padding-inline: 22px;
-    transform: rotate(-1.5deg);
+    --artwork-angle: -1.5deg;
   }
   .artwork-top {
     font-size: 8px;

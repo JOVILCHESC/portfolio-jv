@@ -7,12 +7,12 @@ export default function Experience({ content, profile }) {
       id="experience"
       aria-labelledby="experience-title"
     >
-      <div>
+      <div data-reveal="group">
         <p className="eyebrow">{content.eyebrow}</p>
         <h2 id="experience-title">{content.title}</h2>
       </div>
       <div className="timeline">
-        <section aria-labelledby="work-title">
+        <section data-reveal="group" aria-labelledby="work-title">
           <p className="timeline-label" id="work-title">
             {content.experienceLabel}
           </p>
@@ -38,7 +38,11 @@ export default function Experience({ content, profile }) {
             </>
           )}
         </section>
-        <section id="education" aria-labelledby="education-title">
+        <section
+          data-reveal="group"
+          id="education"
+          aria-labelledby="education-title"
+        >
           <p className="timeline-label" id="education-title">
             {content.educationLabel}
           </p>
