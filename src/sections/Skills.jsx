@@ -23,6 +23,16 @@ export default function Skills({ content }) {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+            {group.tools && (
+              <div className="skill-tools">
+                <p>{content.toolsLabel}</p>
+                <ul className="skill-list">
+                  {group.tools.map((tool) => (
+                    <li key={tool}>{tool}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </article>
         ))}
       </div>

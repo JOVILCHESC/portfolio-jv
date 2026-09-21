@@ -1,4 +1,4 @@
-export default function About({ content }) {
+export default function About({ content, profile }) {
   return (
     <section
       className="section container about-section"
@@ -16,7 +16,7 @@ export default function About({ content }) {
         ))}
         <p className="about-note">
           <span aria-hidden="true">↗</span>
-          {content.note}
+          {profile.location}
         </p>
       </div>
     </section>

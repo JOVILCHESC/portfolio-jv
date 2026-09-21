@@ -25,6 +25,13 @@ export default function Experience({ content, profile }) {
                   <p className="timeline-period">{entry.period}</p>
                 )}
                 <p>{entry.description}</p>
+                {entry.highlights && (
+                  <ul className="experience-highlights">
+                    {entry.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                )}
               </article>
             ))
           ) : (
@@ -52,7 +59,19 @@ export default function Experience({ content, profile }) {
             <p>{profile.education.institution}</p>
           )}
           {profile.education.period && <p>{profile.education.period}</p>}
-          <p>{content.educationDescription}</p>
+          {profile.education.location && <p>{profile.education.location}</p>}
+          <p>{profile.education.status}</p>
+          {profile.education.certifications && (
+            <div className="certifications">
+              <h4>{content.certificationsLabel}</h4>
+              <p>{profile.education.certifications.issuer}</p>
+              <ul>
+                {profile.education.certifications.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       </div>
     </section>

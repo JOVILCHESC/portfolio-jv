@@ -238,15 +238,23 @@ for (const width of [390, 1440]) {
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.locator('.project-card')).toHaveCount(3)
     await expect(page.locator('#education')).toBeVisible()
-    await page
+    const projectsLink = page
       .getByRole('navigation')
       .getByRole('link', { name: 'Proyectos', exact: true })
-      .click()
+    await projectsLink.focus()
+    await page.keyboard.press('Enter')
     await expect(page).toHaveURL(/#projects$/)
     await expect(page.locator('.project-card').first()).toHaveCSS(
       'opacity',
       '1',
     )
+    const details = page.locator('.project-details').first()
+    await details.locator('summary').focus()
+    await page.keyboard.press('Enter')
+    await expect(details).toHaveAttribute('open', '')
+    await expect(
+      details.getByText('Mi contribución', { exact: true }),
+    ).toBeVisible()
     await context.close()
   })
 }

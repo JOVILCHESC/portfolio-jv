@@ -36,7 +36,9 @@ test('renders the portfolio without runtime errors or broken local links', async
     )
   expect(brokenAnchors).toEqual([])
   await expect(page.locator('a[download]')).toHaveCount(0)
-  await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0)
+  await expect(
+    page.locator('a[href="mailto:castro.samjv@gmail.com"]'),
+  ).toHaveCount(1)
   await page
     .getByRole('link', { name: 'Explorar proyectos', exact: true })
     .click()
@@ -72,10 +74,73 @@ for (const width of [360, 390, 768, 1024, 1440]) {
           }).length,
       )
     expect(clippedProjectContent).toBe(0)
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            document
+              .getAnimations()
+              .filter((animation) => animation.playState === 'running').length,
+        ),
+      )
+      .toBe(0)
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
       .analyze()
     expect(results.violations).toEqual([])
+    for (const details of await page.locator('.project-details').all()) {
+      await details.locator('summary').focus()
+      await page.keyboard.press('Enter')
+      await expect(details).toHaveAttribute('open', '')
+    }
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true)
+    const expandedOverflow = await page
+      .locator('.project-card')
+      .evaluateAll((cards) =>
+        cards.some((card) => {
+          const cardBounds = card.getBoundingClientRect()
+          const bodyBounds = card
+            .querySelector('.project-body')
+            .getBoundingClientRect()
+          return (
+            bodyBounds.bottom > cardBounds.bottom + 1 ||
+            bodyBounds.right > cardBounds.right + 1
+          )
+        }),
+      )
+    expect(expandedOverflow).toBe(false)
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            document
+              .getAnimations()
+              .filter((animation) => animation.playState === 'running').length,
+        ),
+      )
+      .toBe(0)
+    const expandedResults = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+      .analyze()
+    expect(expandedResults.violations).toEqual([])
+    if (width === 390 || width === 1440) {
+      await page.locator('#projects').screenshot({
+        path: testInfo.outputPath(`project-details-${width}.png`),
+      })
+    }
+    for (const details of await page.locator('.project-details').all()) {
+      await details.locator('summary').focus()
+      await page.keyboard.press('Enter')
+      await expect(details).not.toHaveAttribute('open')
+    }
+    await page.evaluate(() => {
+      document.activeElement.blur()
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    })
     if (width === 390 || width === 1440) {
       await page.screenshot({
         path: testInfo.outputPath(`portfolio-${width}.png`),

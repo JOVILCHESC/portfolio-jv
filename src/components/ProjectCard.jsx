@@ -4,11 +4,16 @@ import ProjectVisual from './ProjectVisual.jsx'
 export default function ProjectCard({ project, content }) {
   const hasDetails =
     project.objective ||
+    project.development ||
     project.contribution ||
     project.outcome ||
     project.technologies.length > 0
   return (
-    <article className="project-card" data-reveal="group">
+    <article
+      className="project-card"
+      data-reveal="group"
+      aria-labelledby={`${project.id}-title`}
+    >
       <div className={`project-image ${project.visual}`}>
         <span className="project-number">{project.number} /</span>
         {project.image ? (
@@ -27,8 +32,15 @@ export default function ProjectCard({ project, content }) {
         )}
       </div>
       <div className="project-body">
-        <p className="project-category">{project.category}</p>
-        <h3>{project.title}</h3>
+        <div className="project-meta">
+          <p className="project-category">{project.category}</p>
+          {project.year && (
+            <time className="project-year" dateTime={String(project.year)}>
+              {project.year}
+            </time>
+          )}
+        </div>
+        <h3 id={`${project.id}-title`}>{project.title}</h3>
         <p className="project-description">{project.description}</p>
         <ul className="tags">
           {project.tags.map((tag) => (
@@ -39,7 +51,7 @@ export default function ProjectCard({ project, content }) {
           <details className="project-details">
             <summary>{content.details}</summary>
             <dl>
-              {['objective', 'contribution', 'outcome'].map(
+              {['objective', 'development', 'contribution', 'outcome'].map(
                 (key) =>
                   project[key] && (
                     <div key={key}>
@@ -50,11 +62,14 @@ export default function ProjectCard({ project, content }) {
               )}
             </dl>
             {project.technologies.length > 0 && (
-              <ul className="tags">
-                {project.technologies.map((technology) => (
-                  <li key={technology}>{technology}</li>
-                ))}
-              </ul>
+              <div className="project-technologies">
+                <p>{content.technologies}</p>
+                <ul className="tags">
+                  {project.technologies.map((technology) => (
+                    <li key={technology}>{technology}</li>
+                  ))}
+                </ul>
+              </div>
             )}
           </details>
         )}

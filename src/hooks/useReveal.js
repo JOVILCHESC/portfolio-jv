@@ -9,6 +9,14 @@ export default function useReveal(rootRef) {
     const targets = [...root.querySelectorAll('[data-reveal]')]
     let observer
 
+    const finishOnFocus = (event) => {
+      const target = event.target.closest('[data-reveal]')
+      if (!target || !root.contains(target)) return
+      target.dataset.revealStatic = 'true'
+      target.dataset.revealed = 'true'
+      observer?.unobserve(target)
+    }
+
     const observe = () => {
       observer?.disconnect()
       if (preference.matches) return
@@ -30,9 +38,11 @@ export default function useReveal(rootRef) {
     }
 
     observe()
+    root.addEventListener('focusin', finishOnFocus)
     preference.addEventListener('change', observe)
     return () => {
       observer?.disconnect()
+      root.removeEventListener('focusin', finishOnFocus)
       preference.removeEventListener('change', observe)
     }
   }, [rootRef])

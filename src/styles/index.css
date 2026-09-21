@@ -221,6 +221,13 @@ h1 > span {
   line-height: 1.85;
   margin-bottom: 28px;
 }
+.hero-headline {
+  max-width: 470px;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
 .hero-actions {
   display: flex;
   align-items: center;
@@ -418,6 +425,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 23px;
+  align-items: start;
 }
 .project-card {
   min-width: 0;
@@ -440,7 +448,7 @@ h2 {
   background: #e0e9df;
   color: #3e604c;
 }
-.project-image.scheduling {
+.project-image.vision {
   background: #352d43;
   color: #d7c6ec;
 }
@@ -482,6 +490,18 @@ h2 {
   font-weight: 700;
   margin-bottom: 12px;
 }
+.project-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 39px;
+}
+.project-year {
+  color: var(--muted);
+  font-size: 10px;
+  flex-shrink: 0;
+}
 .project-body h3 {
   font-size: 18px;
   font-weight: 650;
@@ -514,6 +534,7 @@ h2 {
 .project-details summary {
   padding-block: 10px;
   font-weight: 600;
+  min-height: 44px;
 }
 .project-details dt {
   font-weight: 700;
@@ -521,6 +542,10 @@ h2 {
 .project-details dd {
   margin: 8px 0 15px;
   line-height: 1.7;
+}
+.project-technologies > p {
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 .project-links {
   display: flex;
@@ -538,7 +563,7 @@ h2 {
 }
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 38px;
 }
 .skill-group {
@@ -572,6 +597,36 @@ h2 {
   padding: 8px 11px;
   border-radius: 4px;
   font-size: 10px;
+}
+.skill-tools {
+  margin-top: 18px;
+}
+.skill-tools > p {
+  margin-bottom: 10px;
+}
+.experience-highlights,
+.certifications ul {
+  list-style: disc;
+  padding-left: 17px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.experience-highlights li + li,
+.certifications li + li {
+  margin-top: 8px;
+}
+.certifications {
+  margin-top: 24px;
+}
+.certifications h4 {
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+.certifications p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
 }
 .experience-section {
   border-top: 1px solid var(--line);
@@ -896,7 +951,8 @@ h2 {
     grid-template-columns: 1fr 1.15fr;
   }
   .project-image {
-    height: 100%;
+    height: 260px;
+    align-self: start;
     min-height: 260px;
     aspect-ratio: auto;
     border-bottom: 0;

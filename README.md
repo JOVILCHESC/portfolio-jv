@@ -1,6 +1,6 @@
 # Josué Vilches Castro · Portfolio
 
-A responsive Spanish-language portfolio built with React, Vite, JavaScript, and modern CSS. The initial content focuses on Data Analytics, Business Intelligence, Power BI, Machine Learning, and software development.
+A responsive Spanish-language portfolio built with React, Vite, JavaScript, and modern CSS. The verified content presents Josué Vilches Castro, a final-stage Ingeniería Civil en Computación e Informática student at Universidad Arturo Prat, with practical web development and IT support experience and academic work in data and applied AI.
 
 ## Local development
 
@@ -35,12 +35,13 @@ The build also prerenders the existing React components into HTML with `scripts/
 - `public/`: static assets, including the favicon and a future CV PDF.
 - `tests/portfolio.spec.js`: browser checks for navigation, responsive overflow, runtime errors, reduced motion, and WCAG A/AA automated accessibility checks.
 - `tests/motion.spec.js`: active navigation, scroll progress, reveal lifecycle, pointer capabilities, reduced motion changes, and HTML without JavaScript.
+- `tests/content.spec.js`: verified identity and contact channels, academic team attribution, project years, publication restrictions, and real project detail interactions.
 
 The interface uses locally bundled Manrope fonts. It does not request remote fonts, use analytics, or submit personal data. Project graphics are labeled conceptual illustrations; they do not represent measured outcomes or actual project screenshots.
 
 ## Interaction system
 
-Reveal groups are marked with `data-reveal="group"` and observed once by a shared `IntersectionObserver`. Content is visible by default; entering the viewport triggers a short opacity/translate animation and releases the observer target. Keyboard focus cancels a group's reveal. The SVG artwork uses the same observer with finite, restrained node and icon animations.
+Reveal groups are marked with `data-reveal="group"` and observed once by a shared `IntersectionObserver`. Content is visible by default; entering the viewport triggers a short opacity/translate animation and releases the observer target. Keyboard focus permanently finishes a group's reveal, so leaving a project detail control cannot restart it. The SVG artwork uses the same observer with finite, restrained node and icon animations.
 
 Artwork tilt is limited to 1.5 degrees per axis on hovering fine-pointer devices and mouse events. Pointer movement and scrolling schedule at most one pending animation frame, with no idle render loop. Scroll progress updates a transform directly; React state changes only when the active section changes. Section offsets and document height are cached and remeasured after resize or content-size changes. Effects remove their listeners, observers, and pending frames on cleanup.
 
@@ -48,25 +49,28 @@ Reduced motion disables reveals, SVG animation, tilt, hover translation, and the
 
 ## Content handoff
 
-Only supplied personal facts and project categories are represented. No employment history, project metrics, technology stacks, institutions, dates, or contact URLs have been invented.
+The portfolio owner supplied the profile, YMCA Iquique internship (January–February 2025), UNAP education (2021–present), Cisco Networking Academy certifications, skills, email, GitHub profile, and academic project descriptions. These supplied facts are the content source of truth; they were not inferred from third-party profiles.
+
+The 2026 datamart and Data Mining projects are explicitly team academic work. Datamart attribution is limited to team membership. The documented individual Data Mining role is data preparation, data quality, transformation, and ETL; the regression, classification, and time-series work belongs to the team. Its React/FastAPI application is an academic deployment simulation. The computer-vision prototype uses a pretrained model, has no verified year, and includes experimental Gemini integration. No model performance numbers, experimental predictor columns, business-impact projections, or production-adoption claims are published.
 
 Update `src/data/portfolio.js` to add confirmed details:
 
-| Field                                          | Expected value                                                                   | Behavior when absent              |
-| ---------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------- |
-| `email`                                        | Confirmed email address                                                          | Email action hidden               |
-| `cv`                                           | Path to an actual PDF in `public/`                                               | Download actions hidden           |
-| `socialLinks`                                  | Objects with `label` and `href`                                                  | Social links hidden               |
-| `education.institution`, `education.period`    | Official institution and dates                                                   | Fields hidden                     |
-| `experience`                                   | Objects with `id`, `role`, optional `organization` / `period`, and `description` | Academic project experience shown |
-| Project `objective`, `contribution`, `outcome` | Verified short descriptions                                                      | Detail disclosure hidden          |
-| Project `technologies`                         | Verified technology names                                                        | Technology list hidden            |
-| Project `links`                                | Objects with `label` and real `href`                                             | Project actions hidden            |
-| Project `image`                                | Object with `src` and meaningful `alt`                                           | Conceptual illustration shown     |
+| Field                                                         | Expected value                                                                   | Behavior when absent              |
+| ------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------- |
+| `email`                                                       | Confirmed email address                                                          | Email action hidden               |
+| `cv`                                                          | Path to an actual PDF in `public/`                                               | Download actions hidden           |
+| `socialLinks`                                                 | Objects with `label` and `href`                                                  | Social links hidden               |
+| `education.institution`, `education.period`                   | Official institution and dates                                                   | Fields hidden                     |
+| `experience`                                                  | Objects with `id`, `role`, optional `organization` / `period`, and `description` | Academic project experience shown |
+| Project `year`                                                | Verified project year                                                            | Year hidden                       |
+| Project `objective`, `development`, `contribution`, `outcome` | Verified descriptions separating team development from individual work           | Absent fields hidden              |
+| Project `technologies`                                        | Verified technology names                                                        | Technology list hidden            |
+| Project `links`                                               | Objects with `label` and real `href`                                             | Project actions hidden            |
+| Project `image`                                               | Object with `src` and meaningful `alt`                                           | Conceptual illustration shown     |
 
-Project `tags` describe the provided categories; they do not assert a specific implementation stack. Visible interface text lives in `copy.es`; translated profile/project fields can be selected alongside a future `copy.en`. Keep `index.html` title, description, language, and Open Graph metadata aligned when changing identity or language.
+Project `tags` show a short selection of verified technologies; the complete technology and method lists live inside the detail disclosure. AI assistants are listed separately from programming languages and ML frameworks. Visible interface text lives in `copy.es`; translated profile/project fields can be selected alongside a future `copy.en`. Keep `index.html` title, description, language, and Open Graph metadata aligned when changing identity or language.
 
-Needed before a complete public release: preferred contact channel, CV, official degree/institution wording and dates, verified project contributions/results/stacks, screenshots, and any repository/demo URLs. The site itself builds as a deployable static foundation without these fields.
+Still optional or pending before public release: an actual CV PDF in `public/`, verified project screenshots and repository/demo/dashboard URLs, a confirmed year for the computer-vision prototype, and the final hosting URL/social preview image. More specific individual ownership of datamart or AI tasks requires confirmation before adding it. Phone numbers and unprovided social profiles remain unpublished. The site builds and works without these optional fields; the CV action remains hidden.
 
 ## Browser validation
 

@@ -18,6 +18,7 @@ export default function Hero({ content, profile }) {
             <br />
             <span>{content.title[2]}</span>
           </h1>
+          <p className="hero-headline">{profile.headline}</p>
           <p className="hero-description">{content.description}</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#projects">

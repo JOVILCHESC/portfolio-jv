@@ -77,29 +77,47 @@ export default function ProjectVisual({ type }) {
           <path d="M355 187h43m-43 12h28" stroke="#a2b7a8" strokeWidth="4" />
         </>
       )}
-      {type === 'scheduling' && (
+      {type === 'vision' && (
         <>
           <g stroke="#766790" strokeOpacity=".45">
             <path d="M63 62h355M63 112h355M63 162h355M63 212h355M96 38v198M166 38v198M236 38v198M306 38v198M376 38v198" />
           </g>
-          <g fill="#b9a0e3">
-            <rect x="80" y="49" width="113" height="25" rx="5" />
-            <rect x="208" y="99" width="91" height="25" rx="5" />
-            <rect x="323" y="149" width="74" height="25" rx="5" />
+          <g stroke="#b9a0e3" strokeWidth="2">
+            <path d="M119 77V49h32m177 28V49h-32M119 193v28h32m177-28v28h-32" />
+            <rect
+              x="169"
+              y="66"
+              width="109"
+              height="65"
+              rx="5"
+              strokeDasharray="5 5"
+            />
+            <rect
+              x="161"
+              y="144"
+              width="125"
+              height="65"
+              rx="5"
+              strokeDasharray="5 5"
+            />
           </g>
-          <g fill="#776093">
-            <rect x="80" y="99" width="76" height="25" rx="5" />
-            <rect x="172" y="149" width="126" height="25" rx="5" />
-            <rect x="255" y="199" width="142" height="25" rx="5" />
+          <g
+            fill="#776093"
+            stroke="#d6c4ec"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          >
+            <path d="M190 111c0-42 67-42 67 0m-72 0h77m-39-28v20" />
+            <path d="m204 151-19 13-9 34h95l-9-34-19-13-20 16Z" />
+            <path d="M208 158v38m31-38v38m-50-14h69" />
           </g>
           <path
-            d="m192 62 17 50m89 0 25 50m-25 0-44 50"
-            stroke="#d6c4ec"
-            strokeWidth="1.5"
-            strokeDasharray="4 4"
+            d="M289 99h56m-48 77h48"
+            stroke="#b9a0e3"
+            strokeDasharray="3 5"
           />
-          <path d="M236 31v209" stroke="#d6c4ec" strokeDasharray="3 5" />
-          <circle cx="236" cy="31" r="4" fill="#e0d0f4" />
+          <circle cx="354" cy="99" r="5" fill="#b9a0e3" />
+          <circle cx="354" cy="176" r="5" fill="#b9a0e3" />
         </>
       )}
     </svg>

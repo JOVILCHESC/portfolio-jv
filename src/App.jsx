@@ -23,7 +23,7 @@ export default function App() {
       <Navbar content={content} profile={portfolio} />
       <main ref={mainRef} id="main-content" tabIndex={-1}>
         <Hero content={content.hero} profile={portfolio} />
-        <About content={content.about} />
+        <About content={content.about} profile={portfolio} />
         <Projects content={content.projects} projects={portfolio.projects} />
         <Skills content={content.skills} />
         <Experience content={content.experience} profile={portfolio} />
