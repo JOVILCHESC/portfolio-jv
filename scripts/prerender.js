@@ -2,12 +2,12 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
 import { createServer } from 'vite'
-import react from '@vitejs/plugin-react'
+import viteConfig from '../vite.config.js'
 
 // Render from the same components so content also survives a failed script download.
 const server = await createServer({
+  ...viteConfig,
   configFile: false,
-  plugins: [react()],
   server: { middlewareMode: true },
   appType: 'custom',
 })

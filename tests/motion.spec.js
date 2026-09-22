@@ -12,7 +12,7 @@ async function jumpTo(page, id) {
 test('navigation follows scrolling and header progress has no layout footprint', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   const navigation = page.getByRole('navigation')
   const progress = page.locator('.scroll-progress')
   const headerHeight = await page
@@ -53,7 +53,7 @@ test('navigation follows scrolling and header progress has no layout footprint',
 test('reveals run once and timeline entries progress independently', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   const card = page.locator('.project-card').first()
   await expect(card).not.toHaveAttribute('data-revealed')
   await card.evaluate((element) => {
@@ -83,7 +83,7 @@ test('reveals run once and timeline entries progress independently', async ({
 test('artwork tilt responds to a mouse, resets, and stops on reduced motion', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   const artwork = page.locator('.data-artwork')
   await artwork.hover({ position: { x: 40, y: 40 } })
   await expect
@@ -118,14 +118,16 @@ test('artwork tilt responds to a mouse, resets, and stops on reduced motion', as
 
 test('touch devices do not tilt the artwork or lift project cards', async ({
   browser,
+  baseURL,
 }) => {
   const context = await browser.newContext({
+    baseURL,
     hasTouch: true,
     isMobile: true,
     viewport: { width: 390, height: 844 },
   })
   const page = await context.newPage()
-  await page.goto('http://127.0.0.1:4173/')
+  await page.goto('./')
   expect(
     await page.evaluate(() => matchMedia('(pointer: coarse)').matches),
   ).toBe(true)
@@ -157,7 +159,7 @@ test('reduced motion disables all decorative movement and preserves active navig
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/')
+  await page.goto('./')
   await expect(page.locator('.scroll-progress')).toBeHidden()
   await expect(page.locator('.artwork-icon')).toHaveCSS(
     'animation-name',
@@ -186,7 +188,7 @@ test('reduced motion disables all decorative movement and preserves active navig
 test('project focus styling supports optional links without adding empty tab stops', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   const card = page.locator('.project-card').first()
   await expect(card).not.toHaveAttribute('tabindex')
   // Exercise the optional-link focus path without changing real portfolio data.
@@ -212,7 +214,7 @@ test('content stays visible if IntersectionObserver is unavailable', async ({
   await page.addInitScript(() => {
     delete window.IntersectionObserver
   })
-  await page.goto('/')
+  await page.goto('./')
   await jumpTo(page, 'projects')
   await expect(page.locator('.project-card').first()).toHaveCSS('opacity', '1')
   await expect(page.locator('.project-card').first()).toHaveCSS(
@@ -228,13 +230,15 @@ test('content stays visible if IntersectionObserver is unavailable', async ({
 for (const width of [390, 1440]) {
   test(`static portfolio and navigation work without JavaScript at ${width}px`, async ({
     browser,
+    baseURL,
   }) => {
     const context = await browser.newContext({
+      baseURL,
       javaScriptEnabled: false,
       viewport: { width, height: 960 },
     })
     const page = await context.newPage()
-    await page.goto('http://127.0.0.1:4173/')
+    await page.goto('./')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.locator('.project-card')).toHaveCount(3)
     await expect(page.locator('#education')).toBeVisible()
@@ -263,7 +267,7 @@ test('static content survives a failed JavaScript download', async ({
   page,
 }) => {
   await page.route('**/assets/*.js', (route) => route.abort())
-  await page.goto('/')
+  await page.goto('./')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
   await expect(page.locator('.project-card')).toHaveCount(3)
   await page

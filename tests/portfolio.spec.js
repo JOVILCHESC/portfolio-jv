@@ -13,7 +13,7 @@ test('renders the portfolio without runtime errors or broken local links', async
     if (response.status() >= 400)
       errors.push(`${response.status()} ${response.url()}`)
   })
-  await page.goto('/')
+  await page.goto('./')
   await expect(page).toHaveTitle(/Josué Vilches Castro/)
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
   await expect(page.locator('.project-card')).toHaveCount(3)
@@ -35,7 +35,7 @@ test('renders the portfolio without runtime errors or broken local links', async
         .map((link) => link.outerHTML),
     )
   expect(brokenAnchors).toEqual([])
-  await expect(page.locator('a[download]')).toHaveCount(0)
+  await expect(page.locator('a[download]')).toHaveCount(2)
   await expect(
     page.locator('a[href="mailto:castro.samjv@gmail.com"]'),
   ).toHaveCount(1)
@@ -51,7 +51,7 @@ for (const width of [360, 390, 768, 1024, 1440]) {
     page,
   }, testInfo) => {
     await page.setViewportSize({ width, height: 960 })
-    await page.goto('/')
+    await page.goto('./')
     await page.evaluate(() => document.fonts.ready)
     expect(
       await page.evaluate(
@@ -154,7 +154,7 @@ test('mobile menu supports navigation, Escape, and keyboard focus', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/')
+  await page.goto('./')
   const menu = page.getByRole('button', { name: /menú/ })
   const navigation = page.getByRole('navigation')
   await expect(navigation).toBeHidden()
@@ -176,7 +176,7 @@ test('mobile menu supports navigation, Escape, and keyboard focus', async ({
 
 test('respects reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/')
+  await page.goto('./')
   expect(
     await page.evaluate(
       () => getComputedStyle(document.documentElement).scrollBehavior,

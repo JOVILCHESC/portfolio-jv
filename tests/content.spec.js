@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test('publishes verified identity, internship, education and contact channels', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   await expect(page.locator('.hero-headline')).toHaveText(
     'Ingeniería Civil en Computación e Informática | Desarrollo, Datos y Soporte TI',
   )
@@ -36,14 +36,14 @@ test('publishes verified identity, internship, education and contact channels', 
     page.locator('#contact').getByRole('link', { name: 'GitHub' }),
   ).toHaveAttribute('href', 'https://github.com/JOVILCHESC')
   await expect(
-    page.locator('a[download], a[href^="tel:"], a[href*="linkedin.com"]'),
+    page.locator('a[href^="tel:"], a[href*="linkedin.com"]'),
   ).toHaveCount(0)
 })
 
 test('distinguishes team development from documented individual contributions', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   const datamart = page.getByRole('article', {
     name: 'Datamart y Business Intelligence Inmobiliario',
     exact: true,
@@ -106,7 +106,7 @@ test('distinguishes team development from documented individual contributions', 
 test('public HTML and metadata exclude withdrawn topics and unreviewed metrics', async ({
   request,
 }) => {
-  const response = await request.get('/')
+  const response = await request.get('./')
   const html = await response.text()
   expect(html).not.toMatch(
     /MARL|Multi-Agent Reinforcement Learning|Dynamic Scheduling|SimPy|planificación dinámica|refuerzo multiagente|tesis|R²|accuracy|recall|\bF1\b|\bMAE\b|\bRMSE\b|\bMAPE\b|sale.?year|predictor columns/i,
@@ -120,7 +120,7 @@ test('public HTML and metadata exclude withdrawn topics and unreviewed metrics',
 test('skills avoid duplicated items and distinguish AI tools from frameworks', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   const items = await page.locator('#skills .skill-list li').allTextContents()
   expect(new Set(items).size).toBe(items.length)
   expect(items).toEqual(
@@ -150,7 +150,7 @@ test('skills avoid duplicated items and distinguish AI tools from frameworks', a
 test('expanding real project details preserves navigation and scroll progress', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('./')
   const card = page.locator('.project-card').nth(1)
   const summary = card.locator('summary')
   await summary.focus()

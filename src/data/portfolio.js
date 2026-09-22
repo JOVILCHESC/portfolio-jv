@@ -6,7 +6,7 @@ export const portfolio = {
   degree: 'Ingeniería Civil en Computación e Informática',
   location: 'Alto Hospicio, Tarapacá, Chile',
   email: 'castro.samjv@gmail.com',
-  cv: null,
+  cv: `${import.meta.env.BASE_URL}CV_Josue_Vilches.pdf`,
   socialLinks: [{ label: 'GitHub', href: 'https://github.com/JOVILCHESC' }],
   education: {
     institution: 'Universidad Arturo Prat (UNAP)',

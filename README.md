@@ -19,9 +19,19 @@ npm run build
 npm run preview
 ```
 
-`npm run build` creates the production site in `dist/`. Deploy that directory to a static host. For deployment under a subdirectory, configure Vite's `base` option and adjust public asset references. A custom domain, canonical URL, and absolute Open Graph image URL should be added once the hosting address is known.
+`npm run build` creates the production site in `dist/`. Vite is configured for `/portfolio-jv/`, including local development and production preview. Use the complete URL printed by Vite. The canonical and Open Graph URL is `https://jovilchesc.github.io/portfolio-jv/`; no unverified social preview image is declared.
 
 The build also prerenders the existing React components into HTML with `scripts/prerender.js`. Production content and anchor navigation remain available if JavaScript is disabled or fails to download. React hydrates this markup to enable interactions; the development server still renders on the client.
+
+## GitHub Pages release
+
+`.github/workflows/deploy.yml` runs on pushes to `main` or a manual dispatch on `main`. It uses the official Pages actions pinned to commit SHAs: checkout, Node.js setup, artifact upload, Pages configuration, and deployment. The build job runs `npm ci`, lint, the prerendered build, and Playwright checks before uploading `dist/`. Only the deployment job receives `pages: write` and `id-token: write`; the build job has `contents: read`.
+
+GitHub Pages must be enabled once in the repository: **Settings → Pages → Build and deployment → Source → GitHub Actions**. If the first workflow ran before this setting was enabled, open **Actions → Deploy portfolio to GitHub Pages → Re-run all jobs** (or dispatch the workflow on `main`). A successful workflow and an HTTP check of the actual site confirm deployment; pushing `main` alone does not.
+
+Release URL: <https://jovilchesc.github.io/portfolio-jv/>. Promote a validated `develop` release to `main` using a normal merge, then push both branches. No deployment branch or additional dependency is needed.
+
+The real CV is `public/CV_Josue_Vilches.pdf`, used without modification. Its link uses `import.meta.env.BASE_URL`; the prerenderer reads the same Vite configuration as the client build. Both download actions preserve the original filename. Asset and download tests run under the repository subpath and compare the served PDF bytes with the supplied file.
 
 ## Architecture
 
@@ -36,6 +46,7 @@ The build also prerenders the existing React components into HTML with `scripts/
 - `tests/portfolio.spec.js`: browser checks for navigation, responsive overflow, runtime errors, reduced motion, and WCAG A/AA automated accessibility checks.
 - `tests/motion.spec.js`: active navigation, scroll progress, reveal lifecycle, pointer capabilities, reduced motion changes, and HTML without JavaScript.
 - `tests/content.spec.js`: verified identity and contact channels, academic team attribution, project years, publication restrictions, and real project detail interactions.
+- `tests/release.spec.js`: CV downloads, base-path asset and font loading, favicon, canonical metadata, and production HTML checks.
 
 The interface uses locally bundled Manrope fonts. It does not request remote fonts, use analytics, or submit personal data. Project graphics are labeled conceptual illustrations; they do not represent measured outcomes or actual project screenshots.
 
@@ -70,7 +81,7 @@ Update `src/data/portfolio.js` to add confirmed details:
 
 Project `tags` show a short selection of verified technologies; the complete technology and method lists live inside the detail disclosure. AI assistants are listed separately from programming languages and ML frameworks. Visible interface text lives in `copy.es`; translated profile/project fields can be selected alongside a future `copy.en`. Keep `index.html` title, description, language, and Open Graph metadata aligned when changing identity or language.
 
-Still optional or pending before public release: an actual CV PDF in `public/`, verified project screenshots and repository/demo/dashboard URLs, a confirmed year for the computer-vision prototype, and the final hosting URL/social preview image. More specific individual ownership of datamart or AI tasks requires confirmation before adding it. Phone numbers and unprovided social profiles remain unpublished. The site builds and works without these optional fields; the CV action remains hidden.
+Optional future additions: verified project screenshots and repository/demo/dashboard URLs, a confirmed year for the computer-vision prototype, and a real social preview image. More specific individual ownership of datamart or AI tasks requires confirmation before adding it. The supplied CV is published as provided; no phone number or unprovided social profile is added to the portfolio page. Missing project visuals and links do not block this first release.
 
 ## Browser validation
 
