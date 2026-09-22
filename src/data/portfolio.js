@@ -7,7 +7,7 @@ export const portfolio = {
   location: 'Alto Hospicio, Tarapacá, Chile',
   email: 'castro.samjv@gmail.com',
   cv: `${import.meta.env.BASE_URL}CV_Josue_Vilches.pdf`,
-  socialLinks: [{ label: 'GitHub', href: 'https://github.com/JOVILCHESC' }],
+  socialLinks: [],
   education: {
     institution: 'Universidad Arturo Prat (UNAP)',
     period: '2021 - Actualidad',

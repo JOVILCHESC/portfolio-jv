@@ -32,11 +32,16 @@ test('publishes verified identity, internship, education and contact channels', 
     'href',
     'mailto:castro.samjv@gmail.com',
   )
+  await expect(page.locator('#contact a')).toHaveCount(2)
+  await expect(page.locator('#contact')).not.toContainText('GitHub')
+  await expect(page.locator('.footer-note')).toHaveText(
+    'Josué Vilches Castro · Portfolio 2026',
+  )
+  await expect(page.locator('footer')).not.toContainText('©')
   await expect(
-    page.locator('#contact').getByRole('link', { name: 'GitHub' }),
-  ).toHaveAttribute('href', 'https://github.com/JOVILCHESC')
-  await expect(
-    page.locator('a[href^="tel:"], a[href*="linkedin.com"]'),
+    page.locator(
+      'a[href^="tel:"], a[href*="linkedin.com"], a[href^="https://github.com/JOVILCHESC"]',
+    ),
   ).toHaveCount(0)
 })
 
@@ -115,6 +120,8 @@ test('public HTML and metadata exclude withdrawn topics and unreviewed metrics',
   expect(html).toContain('Data Mining')
   expect(html).toContain('Power BI')
   expect(html).toContain('castro.samjv@gmail.com')
+  expect(html).not.toContain('https://github.com/JOVILCHESC')
+  expect(html).toContain('Josué Vilches Castro · Portfolio 2026')
 })
 
 test('skills avoid duplicated items and distinguish AI tools from frameworks', async ({
@@ -135,6 +142,8 @@ test('skills avoid duplicated items and distinguish AI tools from frameworks', a
       'scikit-learn',
       'MongoDB',
       'Cisco Packet Tracer',
+      'Git',
+      'GitHub',
     ]),
   )
   await expect(page.locator('.skill-tools')).toContainText(

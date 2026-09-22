@@ -139,14 +139,14 @@ export const copy = {
       eyebrow: '05 / CONTACTO',
       title: 'El próximo paso\nempieza con una conversación.',
       description:
-        'Busco continuar mi desarrollo en datos, software y soporte TI, y realizar la Práctica Profesional II. Puedes contactarme por correo o conocer mi perfil en GitHub.',
+        'Busco continuar mi desarrollo en datos, software y soporte TI, y realizar la Práctica Profesional II. Puedes contactarme por correo o descargar mi CV.',
       unavailable: 'Los canales de contacto aún no están publicados.',
       emailAction: 'Escríbeme',
     },
     footer: {
       description: 'Datos, inteligencia y desarrollo.',
       top: 'Volver al inicio',
-      note: 'Diseñado con intención.',
+      note: 'Josué Vilches Castro · Portfolio 2026',
     },
   },
 }

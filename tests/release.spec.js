@@ -86,8 +86,7 @@ test('prerendered metadata and CV use their production URLs before hydration', a
     'content',
     'es_CL',
   )
-  await expect(page.locator('a[target="_blank"]')).toHaveAttribute(
-    'rel',
-    /noreferrer/,
-  )
+  for (const link of await page.locator('a[target="_blank"]').all()) {
+    await expect(link).toHaveAttribute('rel', /noreferrer/)
+  }
 })
