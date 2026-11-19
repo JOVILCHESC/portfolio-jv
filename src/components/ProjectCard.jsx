@@ -10,19 +10,22 @@ export default function ProjectCard({ project, content }) {
     project.technologies.length > 0
   return (
     <article
-      className="project-card"
+      className={`project-card ${project.caseStudyPath ? 'project-card-featured' : ''}`}
       data-reveal="group"
       aria-labelledby={`${project.id}-title`}
     >
       <div className={`project-image ${project.visual}`}>
-        <span className="project-number">{project.number} /</span>
+        {!project.image && (
+          <span className="project-number">{project.number} /</span>
+        )}
         {project.image ? (
           <img
             src={project.image.src}
             alt={project.image.alt}
             loading="lazy"
-            width="480"
-            height="270"
+            width={project.image.width}
+            height={project.image.height}
+            decoding="async"
           />
         ) : (
           <>
@@ -32,6 +35,11 @@ export default function ProjectCard({ project, content }) {
         )}
       </div>
       <div className="project-body">
+        {project.caseStudyPath && (
+          <p className="project-feature-label">
+            {project.caseStudyLabel ?? 'Caso de estudio'}
+          </p>
+        )}
         <div className="project-meta">
           <p className="project-category">{project.category}</p>
           {project.year && (
@@ -47,7 +55,15 @@ export default function ProjectCard({ project, content }) {
             <li key={tag}>{tag}</li>
           ))}
         </ul>
-        {hasDetails && (
+        {project.caseStudyPath && (
+          <a
+            className="case-action"
+            href={`${import.meta.env.BASE_URL}${project.caseStudyPath}`}
+          >
+            Ver proyecto
+          </a>
+        )}
+        {hasDetails && !project.caseStudyPath && (
           <details className="project-details">
             <summary>{content.details}</summary>
             <dl>

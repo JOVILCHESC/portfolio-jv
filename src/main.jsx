@@ -4,11 +4,12 @@ import App from './App.jsx'
 import '@fontsource-variable/manrope'
 import './styles/index.css'
 import './styles/motion.css'
+import './styles/projects.css'
 
 const root = document.getElementById('root')
 const app = (
   <React.StrictMode>
-    <App />
+    <App pathname={window.location.pathname} />
   </React.StrictMode>
 )
 

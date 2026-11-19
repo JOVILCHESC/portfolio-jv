@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Arrow from './Arrow.jsx'
 import useScrollStatus from '../hooks/useScrollStatus.js'
 
-export default function Navbar({ content, profile }) {
+export default function Navbar({ content, profile, homeHref = '' }) {
   const [isOpen, setIsOpen] = useState(false)
   const toggleRef = useRef(null)
   const headerRef = useRef(null)
@@ -37,7 +37,7 @@ export default function Navbar({ content, profile }) {
       <div className="container navbar">
         <a
           className="brand"
-          href="#home"
+          href={`${homeHref}#home`}
           aria-label={`${profile.name}, ${content.homeLabel}`}
           onClick={() => setIsOpen(false)}
         >
@@ -76,9 +76,11 @@ export default function Navbar({ content, profile }) {
           {content.navigation.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={`${homeHref}${link.href}`}
               aria-current={
-                link.href === `#${activeSection}` ? 'location' : undefined
+                !homeHref && link.href === `#${activeSection}`
+                  ? 'location'
+                  : undefined
               }
               onClick={() => setIsOpen(false)}
             >
@@ -87,8 +89,10 @@ export default function Navbar({ content, profile }) {
           ))}
           <a
             className="nav-contact"
-            href="#contact"
-            aria-current={activeSection === 'contact' ? 'location' : undefined}
+            href={`${homeHref}#contact`}
+            aria-current={
+              !homeHref && activeSection === 'contact' ? 'location' : undefined
+            }
             onClick={() => setIsOpen(false)}
           >
             {content.contactAction}

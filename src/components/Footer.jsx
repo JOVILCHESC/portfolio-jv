@@ -1,8 +1,8 @@
-export default function Footer({ content, profile }) {
+export default function Footer({ content, profile, homeHref = '' }) {
   return (
     <footer className="container footer">
       <div>
-        <a className="footer-name" href="#home">
+        <a className="footer-name" href={`${homeHref}#home`}>
           {profile.name}
           <span>.</span>
         </a>

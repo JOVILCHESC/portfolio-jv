@@ -69,7 +69,7 @@ test('distinguishes team development from documented individual contributions', 
     )
   }
   await expect(vision.locator('time')).toHaveCount(0)
-  for (const card of [datamart, mining, vision]) {
+  for (const card of [datamart, mining]) {
     await card.locator('summary').focus()
     await page.keyboard.press('Enter')
     await expect(card.locator('dt')).toHaveText([
@@ -102,10 +102,12 @@ test('distinguishes team development from documented individual contributions', 
   await expect(mining).toContainText('control de fuga de información')
   await expect(mining).toContainText('simulación de despliegue')
   await expect(mining).toContainText('React y FastAPI')
-  await expect(vision).toContainText(
-    'modelo de visión computacional preentrenado',
-  )
-  await expect(vision).toContainText('API de Google AI Studio')
+  await expect(vision.locator('details')).toHaveCount(0)
+  await expect(
+    vision.getByRole('link', { name: 'Ver proyecto', exact: true }),
+  ).toHaveAttribute('href', /\/projects\/deteccion-epp\/$/)
+  await expect(vision.locator('img')).toHaveAttribute('src', /dashboard\.webp$/)
+  await expect(vision).toContainText('YOLOv8')
 })
 
 test('public HTML and metadata exclude withdrawn topics and unreviewed metrics', async ({

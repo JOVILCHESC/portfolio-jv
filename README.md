@@ -21,7 +21,7 @@ npm run preview
 
 `npm run build` creates the production site in `dist/`. Vite is configured for `/portfolio-jv/`, including local development and production preview. Use the complete URL printed by Vite. The canonical and Open Graph URL is `https://jovilchesc.github.io/portfolio-jv/`; no unverified social preview image is declared.
 
-The build also prerenders the existing React components into HTML with `scripts/prerender.js`. Production content and anchor navigation remain available if JavaScript is disabled or fails to download. React hydrates this markup to enable interactions; the development server still renders on the client.
+The build also prerenders the existing React components into HTML with `scripts/prerender.js`. Production content and anchor navigation remain available if JavaScript is disabled or fails to download. React hydrates this markup to enable interactions; the development server still renders on the client. Each registered case study receives a real directory and `index.html`, so GitHub Pages serves direct project URLs and reloads without a routing fallback.
 
 ## GitHub Pages release
 
@@ -62,7 +62,7 @@ Reduced motion disables reveals, SVG animation, tilt, hover translation, and the
 
 The portfolio owner supplied the profile, YMCA Iquique internship (January–February 2025), UNAP education (2021–present), Cisco Networking Academy certifications, skills, email, GitHub profile, and academic project descriptions. These supplied facts are the content source of truth; they were not inferred from third-party profiles.
 
-The 2026 datamart and Data Mining projects are explicitly team academic work. Datamart attribution is limited to team membership. The documented individual Data Mining role is data preparation, data quality, transformation, and ETL; the regression, classification, and time-series work belongs to the team. Its React/FastAPI application is an academic deployment simulation. The computer-vision prototype uses a pretrained model, has no verified year, and includes experimental Gemini integration. No model performance numbers, experimental predictor columns, business-impact projections, or production-adoption claims are published.
+The 2026 datamart and Data Mining projects are explicitly team academic work. Datamart attribution is limited to team membership. The documented individual Data Mining role is data preparation, data quality, transformation, and ETL; the regression, classification, and time-series work belongs to the team. Its React/FastAPI application is an academic deployment simulation. The Vigía computer-vision case study is based on the supplied source and screenshots, has no asserted project year, and distinguishes implemented code from unverified live inference. Gemini is not attributed to its verified architecture. No model performance numbers, experimental predictor columns, business-impact projections, or production-adoption claims are published.
 
 Update `src/data/portfolio.js` to add confirmed details:
 
@@ -92,6 +92,14 @@ npm run test:e2e
 ```
 
 Playwright starts a local production preview automatically. Tests cover 360, 390, 768, 1024, and 1440 px widths, plus desktop/mobile screenshots in the ignored `test-results/` directory. Automated accessibility checks complement manual visual review; they are not a full accessibility certification.
+
+## Independent project pages
+
+The EPP case study lives at `/portfolio-jv/projects/deteccion-epp/`. `src/data/caseStudies.js`, `src/pages/ProjectPage.jsx` and `src/components/ProjectGallery.jsx` define reusable content, layout and image interaction. `caseStudyPath` on a project enables its Home link. Other projects keep their disclosures until real case-study content is available. Navbar links return to Home sections; each generated page has its own metadata.
+
+See [EPP implementation and source verification](docs/epp-case-study.md) for architecture, image provenance, limitations and design references. See [dependency review](docs/dependency-review.md) for the targeted toolchain security updates and audit limitations. No new direct library was added. Dependabot proposes monthly updates through PRs; no automatic merging is enabled.
+
+`tests/case-study.spec.js` adds direct navigation, reload, metadata, original image access, gallery selection, viewer keyboard/focus/zoom, no-JavaScript fallback and five-width accessibility checks to the existing suite.
 
 ## Git workflow
 

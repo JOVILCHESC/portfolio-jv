@@ -106,29 +106,38 @@ export const portfolio = {
     },
     {
       id: 'applied-ai-vision',
+      caseStudyPath: 'projects/deteccion-epp/',
+      caseStudyLabel: 'Vigía / Caso de estudio',
       number: '03',
       category: 'Inteligencia artificial / Visión computacional',
       title: 'IA Aplicada y Visión Computacional',
       description:
-        'Prototipo en Python para detectar equipos de protección personal mediante un modelo de visión computacional preentrenado.',
-      tags: ['Python', 'Visión computacional', 'Gemini'],
+        'Detección de personas y EPP, registros históricos y una interfaz de supervisión. Un recorrido por el prototipo local y sus evidencias reales.',
+      tags: ['Python', 'YOLOv8', 'OpenCV', 'React', 'WebSocket'],
       visual: 'vision',
       objective:
         'Explorar la detección de equipos de protección personal y el uso práctico de herramientas de inteligencia artificial.',
       development:
-        'Prototipado en Python con un modelo preentrenado de visión computacional y experimentación con Gemini mediante la API de Google AI Studio.',
+        'Detección con YOLOv8 y OpenCV, consulta de registros en MongoDB mediante una API HTTP e interfaz React con comunicación WebSocket para video.',
       contribution:
         'Mi experiencia se centra en la experimentación práctica con herramientas de IA. El desarrollo descrito corresponde al alcance del proyecto.',
       outcome:
-        'Prototipo experimental de detección con un modelo preentrenado, junto con una integración exploratoria de Gemini.',
+        'Prototipo local con dashboard, historial de evidencias, observaciones y pantalla de monitoreo. La inferencia en vivo no se verificó en esta revisión.',
       technologies: [
         'Python',
         'Visión computacional',
-        'Modelo de IA preentrenado',
-        'Gemini',
-        'Google AI Studio API',
+        'YOLOv8',
+        'OpenCV',
+        'React',
+        'WebSocket',
+        'MongoDB',
       ],
-      image: null,
+      image: {
+        src: `${import.meta.env.BASE_URL}projects/epp/dashboard.webp`,
+        alt: 'Vista general real de Vigía: archivo de evidencias de EPP y estado de la cámara.',
+        width: 1440,
+        height: 1275,
+      },
       links: [],
     },
   ],
